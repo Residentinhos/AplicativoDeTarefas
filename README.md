@@ -47,20 +47,20 @@ Este repositório contém um aplicativo de gerenciamento de tarefas desenvolvido
     
   4.Configure o banco de dados MongoDB conforme descrito no arquivo banco de dados.txt.
 
-  -Executando o Projeto
+  -Executando o Projeto:
 
     Para iniciar o servidor, utilize o comando:
     npm start
     A aplicação estará disponível em http://localhost:3000.
 
-  -Tecnologias Utilizadas
+  -Tecnologias Utilizadas:
   
     Node.js: Para o backend da aplicação.
     Express: Framework para a construção de APIs REST.
     Mongoose: ODM (Object Data Modeling) para MongoDB.
     JSX: Para a interface do usuário.
 
-  -Contribuição
+  -Contribuição:
     Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.
 
   -Licença:
