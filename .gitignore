@@ -1,0 +1,33 @@
+# Dependências do Node.js
+node_modules/
+npm-debug.log*
+
+# Logs de execução
+*.log
+logs/
+*.out
+
+# Arquivos temporários e de backup
+*.tmp
+*.bak
+*.swp
+
+# Diretórios de build/compilação
+dist/
+build/
+
+# Arquivos de variáveis de ambiente
+.env
+.env.local
+.env.*.local
+
+# Configurações de IDEs e editores
+.vscode/
+.idea/
+*.iml
+*.suo
+
+# Arquivos gerados pelo sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
