@@ -1,5 +1,10 @@
 # Aplicativo-De-Tarefas
 Este repositório contém um aplicativo de gerenciamento de tarefas desenvolvido com Node.js, Express, Mongoose e JSX. A aplicação permite que os usuários façam login, se cadastrem e gerenciem uma lista de tarefas de forma eficiente. Ideal para quem quer um exemplo básico de CRUD (Create, Read, Update, Delete).
+
+  -Estrutura do Repositório:
+  
+    +versao1: Primeira versão do aplicativo.
+    +versao2: Segunda versão do aplicativo com melhorias e ajustes.
  
   -Funcionalidades:
   
@@ -29,7 +34,7 @@ Este repositório contém um aplicativo de gerenciamento de tarefas desenvolvido
 
   1.Clone este repositório:
   
-    git clone https://github.com/Residentinhos/Aplicativo-De-Tarefas.git
+    git clone https://github.com/Residentinhos/AplicativoDeTarefas.git
     
   2.Navegue até o diretório do projeto:
   
