@@ -1,0 +1,22 @@
+import React, { useState } from 'react';
+import { View, TextInput, Button, Text } from 'react-native';
+
+const LoginScreen = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = () => {
+    // Chamada para o backend (Node) para autenticar o usuário
+  };
+
+  return (
+    <View>
+      <TextInput placeholder="Email" value={email} onChangeText={setEmail} />
+      <TextInput placeholder="Senha" value={password} onChangeText={setPassword} secureTextEntry />
+      <Button title="Login" onPress={handleLogin} />
+      <Text>Ou crie uma conta</Text>
+    </View>
+  );
+};
+
+export default LoginScreen;
