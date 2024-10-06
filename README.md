@@ -64,5 +64,4 @@ Este repositório contém um aplicativo de gerenciamento de tarefas desenvolvido
     Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.
 
   -Licença:
-  
     Este projeto está licenciado sob a Licença MIT.
