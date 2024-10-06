@@ -1,0 +1,19 @@
+Como Rodar:
+
+no diretório do projeto ReactNative:
+
+npx react-native start
+
+no diretório do node.js:
+
+npx ts-node-dev src/index.ts
+
+===================================================
+Caso não saibam criar o projeto:
+
+npx react-native init TaskApp --template react-native-template-typescript
+
+
+Instalem as dependências necessárias:
+
+npm install @react-native-async-storage/async-storage
