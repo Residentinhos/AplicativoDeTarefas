@@ -1,0 +1,56 @@
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, Button, FlatList } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const TaskListScreen = () => {
+  const [task, setTask] = useState('');
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    // Carrega as tarefas salvas no AsyncStorage quando o app inicia
+    loadTasks();
+  }, []);
+
+  const loadTasks = async () => {
+    const savedTasks = await AsyncStorage.getItem('tasks');
+    if (savedTasks) {
+      setTasks(JSON.parse(savedTasks));
+    }
+  };
+
+  const saveTasks = async (newTasks) => {
+    await AsyncStorage.setItem('tasks', JSON.stringify(newTasks));
+  };
+
+  const addTask = () => {
+    const newTasks = [...tasks, { id: Date.now().toString(), task }];
+    setTasks(newTasks);
+    saveTasks(newTasks);
+    setTask('');
+  };
+
+  const deleteTask = (taskId) => {
+    const filteredTasks = tasks.filter(t => t.id !== taskId);
+    setTasks(filteredTasks);
+    saveTasks(filteredTasks);
+  };
+
+  return (
+    <View>
+      <TextInput placeholder="Digite a tarefa" value={task} onChangeText={setTask} />
+      <Button title="Adicionar Tarefa" onPress={addTask} />
+      <FlatList
+        data={tasks}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <View>
+            <Text>{item.task}</Text>
+            <Button title="Excluir" onPress={() => deleteTask(item.id)} />
+          </View>
+        )}
+      />
+    </View>
+  );
+};
+
+export default TaskListScreen;
