@@ -1,0 +1,153 @@
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, Button, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+interface Task {
+  id: string;
+  task: string;
+  category: string;
+  completed: boolean;
+}
+
+const TaskListScreen = () => {
+  const [task, setTask] = useState<string>('');
+  const [category, setCategory] = useState<string>('Aulas');
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  const categories = ['Aulas', 'Atividades', 'Projetos'];
+
+  useEffect(() => {
+    loadTasks();
+  }, []);
+
+  const loadTasks = async () => {
+    const savedTasks = await AsyncStorage.getItem('tasks');
+    if (savedTasks) {
+      setTasks(JSON.parse(savedTasks));
+    }
+  };
+
+  const saveTasks = async (newTasks: Task[]) => {
+    await AsyncStorage.setItem('tasks', JSON.stringify(newTasks));
+  };
+
+  const addTask = () => {
+    const newTasks = [...tasks, { id: Date.now().toString(), task, category, completed: false }];
+    setTasks(newTasks);
+    saveTasks(newTasks);
+    setTask('');
+  };
+
+  const toggleTaskCompletion = (taskId: string) => {
+    const updatedTasks = tasks.map(t => t.id === taskId ? { ...t, completed: !t.completed } : t);
+    setTasks(updatedTasks);
+    saveTasks(updatedTasks);
+  };
+
+  const deleteTask = (taskId: string) => {
+    const filteredTasks = tasks.filter(t => t.id !== taskId);
+    setTasks(filteredTasks);
+    saveTasks(filteredTasks);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>Lista de Tarefas</Text>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Digite a tarefa"
+        value={task}
+        onChangeText={setTask}
+      />
+
+      <View style={styles.categoryContainer}>
+        {categories.map(cat => (
+          <TouchableOpacity key={cat} onPress={() => setCategory(cat)}>
+            <Text style={[styles.category, category === cat && styles.selectedCategory]}>{cat}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      <Button title="Adicionar Tarefa" onPress={addTask} color="#4CAF50" />
+
+      <FlatList
+        data={tasks}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.taskContainer}>
+            <Text style={[styles.taskText, item.completed && styles.completedTask]}>
+              [{item.category}] {item.task}
+            </Text>
+            <View style={styles.taskButtons}>
+              <Button
+                title={item.completed ? "Desfazer" : "Concluir"}
+                onPress={() => toggleTaskCompletion(item.id)}
+                color={item.completed ? "#FF5722" : "#4CAF50"}
+              />
+              <Button title="Excluir" onPress={() => deleteTask(item.id)} color="#F44336" />
+            </View>
+          </View>
+        )}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#FFFFFF'
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#000000',
+    marginBottom: 10
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#DDDDDD',
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 5
+  },
+  categoryContainer: {
+    flexDirection: 'row',
+    marginBottom: 10
+  },
+  category: {
+    padding: 10,
+    marginHorizontal: 5,
+    borderWidth: 1,
+    borderColor: '#DDDDDD',
+    borderRadius: 5,
+    color: '#000000'
+  },
+  selectedCategory: {
+    backgroundColor: '#4CAF50',
+    color: '#FFFFFF'
+  },
+  taskContainer: {
+    padding: 10,
+    marginVertical: 5,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 5
+  },
+  taskText: {
+    fontSize: 16,
+    color: '#000000'
+  },
+  completedTask: {
+    textDecorationLine: 'line-through',
+    color: '#AAAAAA'
+  },
+  taskButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10
+  }
+});
+
+export default TaskListScreen;
