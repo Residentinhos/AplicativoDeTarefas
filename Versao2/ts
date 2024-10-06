@@ -1,0 +1,15 @@
+import { Schema, model } from 'mongoose';
+
+interface ITask {
+  task: string;
+  category: string;
+  completed: boolean;
+}
+
+const taskSchema = new Schema<ITask>({
+  task: { type: String, required: true },
+  category: { type: String, required: true },
+  completed: { type: Boolean, default: false }
+});
+
+export const Task = model<ITask>('Task', taskSchema);
