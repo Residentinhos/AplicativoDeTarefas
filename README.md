@@ -38,7 +38,8 @@ Este repositório contém um aplicativo de gerenciamento de tarefas desenvolvido
     
   2.Navegue até o diretório do projeto:
   
-    cd APLICATIVO-DE-TAREFAS/VERSÃO1
+    cd APLICATIVODETAREFAS/VERSÃO1
+    cd APLICATIVODETAREFAS/VERSÃO2
     
   3.Instale as dependências:
   
